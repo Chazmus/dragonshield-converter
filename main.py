@@ -1,3 +1,4 @@
+#! /bin/python
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QLabel, QFileDialog, QTextEdit, QComboBox
 import pandas as pd
