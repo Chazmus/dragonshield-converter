@@ -8,7 +8,7 @@ inventory which is not currently possible.
 
 # Instructions
 
-Requires python to be installed.
+Requires python.
 
 Run 'python main.py' in this directory in your favourite terminal. Should pop up with a handy dandy GUI.
 
