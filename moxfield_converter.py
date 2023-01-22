@@ -3,12 +3,11 @@ from pandas import DataFrame
 
 """
 Dragon shield headers: Folder Name,Quantity,Trade Quantity,Card Name,Set Code,Set Name,Card Number,Condition,Printing,Language,Price Bought,Date Bought,LOW,MID,MARKET
-Deckbox headers: Count,Tradelist Count,Name,Edition,Card Number,Condition,Language,Foil,Signed,Artist Proof,Altered Art,Misprint,Promo,Textless,My Price
-
+Moxfield Headers: "Count","Tradelist Count","Name","Edition","Condition","Language","Foil","Tags","Last Modified","Collector Number","Alter","Proxy","Purchase Price"
 """
 
 
-class DeckboxConverter:
+class MoxfieldConverter:
 
     def convert(self, dragonshield_data: DataFrame):
         return pandas.DataFrame(dragonshield_data.apply(self.map_function, axis=1).tolist())
@@ -17,5 +16,6 @@ class DeckboxConverter:
         return {
             "Name": row["Card Name"],
             "Count": row["Quantity"],
-            "Card Number": row["Card Number"],
+            "Edition": row["Set Code"],
+            "Collector Number": row["Card Number"],
         }

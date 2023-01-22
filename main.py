@@ -4,7 +4,9 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit, QLabe
 import pandas as pd
 
 from deckbox_converter import DeckboxConverter
+from moxfield_converter import MoxfieldConverter
 
+conversion_options = {"Deckbox": DeckboxConverter, "Moxfield": MoxfieldConverter}
 
 def main():
     app = QApplication(sys.argv)
@@ -48,8 +50,7 @@ class CSVConverter(QWidget):
 
         # Create a "Conversion Type" dropdown
         self.conversion_type_dropdown = QComboBox(self)
-        options = ["Deckbox"]
-        self.conversion_type_dropdown.addItems(options)
+        self.conversion_type_dropdown.addItems(conversion_options.keys())
         self.conversion_type_dropdown.move(10, 90)
 
         # Create a "Convert" button
@@ -94,12 +95,7 @@ class CSVConverter(QWidget):
             raise
 
         conversion_type = self.conversion_type_dropdown.currentText()
-        converter = None
-        if conversion_type == "Deckbox":
-            converter = DeckboxConverter()
-        elif conversion_type == "TODO":
-            # Implement other converters if necessary
-            pass
+        converter = conversion_options[conversion_type]()
         output_df = converter.convert(df)
         output_df.to_csv(self.output_csv_field.text(), index=False)
         self.info_text.setText("Success!")
